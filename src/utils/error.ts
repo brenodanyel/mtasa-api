@@ -1,11 +1,23 @@
-import { IError } from '../interfaces/IError';
+import { Request, Response, NextFunction } from 'express';
 
-export function generateError(status: number, customMessage: string): IError {
-  const stack = new Error(customMessage);
+export class CustomError extends Error {
+  public code: number;
 
-  return {
-    status,
-    customMessage,
-    stack,
-  };
+  constructor(code: number, message: string) {
+    super(message);
+    this.code = code;
+  }
 }
+
+export const errorMiddleware = (
+  error: CustomError,
+  _req: Request,
+  res: Response,
+  _next: NextFunction,
+) => {
+  if (error instanceof CustomError) {
+    res.status(error.code).json({ error: error.message });
+    return;
+  }
+  res.status(500).json({ error: 'Internal error' });
+};

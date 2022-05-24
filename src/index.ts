@@ -1,16 +1,14 @@
 import 'dotenv/config';
-import express from 'express';
-import cors from 'cors';
+import { App } from './app';
 
 import server from './routes/server.route';
-import errorMiddleware from './middleware/error.middleware';
-
-const app = express();
+import servers from './routes/servers.route';
 
 const { PORT = 3000 } = process.env;
 
-app.use(cors());
-app.use('/server', server);
-app.use(errorMiddleware);
+const app = new App();
 
-app.listen(PORT, () => console.log(`Listening on port ${PORT}`));
+app.addRoute('/server', server);
+app.addRoute('/servers', servers);
+
+app.listen(PORT as number);
