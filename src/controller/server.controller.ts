@@ -1,17 +1,14 @@
 import { Request, Response, NextFunction } from 'express';
+import { Service } from '../service/server.service';
 
-import service from '../service/server.service';
-
-class Controller {
-  public static fetchServer = async (req: Request, res: Response, next: NextFunction) => {
+export class Controller {
+  static async findOne(req: Request, res: Response, next: NextFunction) {
     try {
       const { ip, asePort } = req.query;
-      const server = await service.fetchServer(String(ip), Number(asePort));
+      const server = await Service.findOne(String(ip), Number(asePort));
       res.status(200).json(server);
     } catch (e) {
       next(e);
     }
-  };
+  }
 }
-
-export default Controller;

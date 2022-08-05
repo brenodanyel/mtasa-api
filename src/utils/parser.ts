@@ -1,48 +1,47 @@
+import { format } from './formatHex';
+
 abstract class Parser {
-  protected _buffer: Buffer;
-  protected _position: number;
-  protected _size: number;
+  protected buffer: Buffer;
+
+  protected position: number;
+
+  abstract parse(): any;
+
+  abstract readString(): string;
 
   constructor(buffer: Buffer) {
-    this._buffer = buffer;
-    this._size = buffer.length;
-    this._position = 0;
+    this.buffer = buffer;
+    this.position = 0;
   }
 
-  protected readInt() {
-    return this._buffer[this._position++];
-  }
-
-  protected readString() {
-    if (this._position > this._size) {
-      return '';
-    }
-
+  protected read(length: number = 1) {
     let result = '';
 
-    const length = this._buffer[this._position];
-
-    for (let index = 1; index < length; index++) {
-      const charCode = this._buffer[this._position + index];
-      result += String.fromCharCode(charCode);
+    for (let index = 0; index < length; index += 1) {
+      const charCode = this.buffer[this.position + index];
+      result += format(charCode);
     }
 
-    this._position += length;
+    this.position += length;
 
-    return result;
+    if (result.length === 0) return 0;
+
+    return parseInt(result, 16);
+  }
+
+  protected step(count: number) {
+    return (this.position + count) <= this.buffer.length;
   }
 
   protected seek(position: number) {
-    if (position > this._size) {
+    if (position >= this.buffer.length) {
       return false;
     }
 
-    this._position = position;
+    this.position = position;
 
     return true;
   }
-
-  abstract parse(): any;
 }
 
 export default Parser;
