@@ -1,0 +1,192 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "This is an API created to expose some infos about MTA and MTA Servers\n\n[https://mtasa-api.com](https://mtasa-api.com)",
+    "version": "1.0.0",
+    "title": "MTASA API",
+    "contact": {
+      "name": "iDz",
+      "url": "http://github.com/brenodanyel"
+    }
+  },
+  "host": "mtasa-api.com",
+  "tags": [
+    {
+      "name": "MTA Statistics"
+    },
+    {
+      "name": "Specific Server Statistics"
+    },
+    {
+      "name": "All Servers Statistics"
+    }
+  ],
+  "schemes": [
+    "https"
+  ],
+  "paths": {
+    "/stats": {
+      "get": {
+        "tags": [
+          "MTA Statistics"
+        ],
+        "summary": "Returns statistics about MTA",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/StatsResponse"
+            }
+          }
+        }
+      }
+    },
+    "/server": {
+      "get": {
+        "tags": [
+          "Specific Server Statistics"
+        ],
+        "summary": "Returns statistics about MTA",
+        "parameters": [
+          {
+            "name": "ip",
+            "in": "query",
+            "description": "Server IP",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "asePort",
+            "in": "query",
+            "description": "Server ASE Port (connection port + 123 | default = 22126)",
+            "required": true,
+            "type": "number"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "server statistics",
+            "schema": {
+              "$ref": "#/definitions/ServerResponse"
+            }
+          }
+        }
+      }
+    },
+    "/servers": {
+      "get": {
+        "tags": [
+          "All Servers Statistics"
+        ],
+        "summary": "Returns statistics about all MTA servers",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "mta servers statistics",
+            "schema": {
+              "$ref": "#/definitions/ServersResponse"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Player": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "ping": {
+          "type": "number"
+        }
+      }
+    },
+    "Server": {
+      "type": "object",
+      "properties": {
+        "ip": {
+          "type": "string"
+        },
+        "port": {
+          "type": "number"
+        },
+        "playerCount": {
+          "type": "number"
+        },
+        "playerSlots": {
+          "type": "number"
+        },
+        "name": {
+          "type": "string"
+        },
+        "version": {
+          "type": "string"
+        },
+        "passworded": {
+          "type": "boolean"
+        },
+        "httpPort": {
+          "type": "string"
+        }
+      }
+    },
+    "StatsResponse": {
+      "type": "object",
+      "properties": {
+        "playerCount": {
+          "type": "number"
+        },
+        "servers": {
+          "type": "number"
+        }
+      }
+    },
+    "ServerResponse": {
+      "type": "object",
+      "properties": {
+        "game": {
+          "type": "string"
+        },
+        "port": {
+          "type": "number"
+        },
+        "name": {
+          "type": "number"
+        },
+        "gameType": {
+          "type": "number"
+        },
+        "mapName": {
+          "type": "number"
+        },
+        "version": {
+          "type": "string"
+        },
+        "passworded": {
+          "type": "boolean"
+        },
+        "playerCount": {
+          "type": "number"
+        },
+        "playerSlots": {
+          "type": "number"
+        },
+        "players": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Player"
+          }
+        }
+      }
+    },
+    "ServersResponse": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/Server"
+      }
+    }
+  }
+}
