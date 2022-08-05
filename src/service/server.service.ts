@@ -9,7 +9,6 @@ export class Service {
       const server = await timeout(promise, 5000);
       return server;
     } catch (e) {
-      console.log(e);
       throw new CustomError(408, 'Request Timeout');
     }
   }
