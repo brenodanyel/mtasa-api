@@ -1,0 +1,131 @@
+openapi: 3.0.0
+info:
+  description: |-
+    This is an API created to expose some infos about MTA and MTA Servers
+
+    [https://mtasa-api.com](https://mtasa-api.com)
+  version: 1.0.0-oas3
+  title: MTASA API
+  contact:
+    name: "iDz "
+    url: http://github.com/brenodanyel
+tags:
+  - name: MTA Statistics
+  - name: Specific Server Statistics
+  - name: All Servers Statistics
+paths:
+  /stats:
+    get:
+      tags:
+        - MTA Statistics
+      summary: Returns statistics about MTA
+      responses:
+        "200":
+          description: successful operation
+          content:
+            "*/*":
+              schema:
+                $ref: "#/components/schemas/StatsResponse"
+  /server:
+    get:
+      tags:
+        - Specific Server Statistics
+      summary: Returns statistics about MTA
+      parameters:
+        - in: query
+          name: ip
+          required: true
+          description: Server IP
+          schema:
+            type: string
+        - in: query
+          name: asePort
+          required: true
+          description: Server ASE Port (connection port + 123 | default = 22126)
+          schema:
+            type: number
+      responses:
+        "200":
+          description: server statistics
+          content:
+            "*/*":
+              schema:
+                $ref: "#/components/schemas/ServerResponse"
+  /servers:
+    get:
+      tags:
+        - All Servers Statistics
+      summary: Returns statistics about all MTA servers
+      responses:
+        "200":
+          description: mta servers statistics
+          content:
+            "*/*":
+              schema:
+                $ref: "#/components/schemas/ServersResponse"
+servers:
+  - url: https://mtasa-api.com
+components:
+  schemas:
+    Player:
+      type: object
+      properties:
+        name:
+          type: string
+        ping:
+          type: number
+    Server:
+      type: object
+      properties:
+        ip:
+          type: string
+        port:
+          type: number
+        playerCount:
+          type: number
+        playerSlots:
+          type: number
+        name:
+          type: string
+        version:
+          type: string
+        passworded:
+          type: boolean
+        httpPort:
+          type: string
+    StatsResponse:
+      type: object
+      properties:
+        playerCount:
+          type: number
+        servers:
+          type: number
+    ServerResponse:
+      type: object
+      properties:
+        game:
+          type: string
+        port:
+          type: number
+        name:
+          type: number
+        gameType:
+          type: number
+        mapName:
+          type: number
+        version:
+          type: string
+        passworded:
+          type: boolean
+        playerCount:
+          type: number
+        playerSlots:
+          type: number
+        players:
+          type: array
+          items:
+            $ref: "#/components/schemas/Player"
+    ServersResponse:
+      type: array
+      items:
+        $ref: "#/components/schemas/Server"
