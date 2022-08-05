@@ -12,7 +12,7 @@
   "host": "mtasa-api.com",
   "tags": [
     {
-      "name": "MTA Statistics"
+      "name": "MTA:SA Statistics"
     },
     {
       "name": "Specific Server Statistics"
@@ -28,7 +28,7 @@
     "/stats": {
       "get": {
         "tags": [
-          "MTA Statistics"
+          "MTA:SA Statistics"
         ],
         "summary": "Returns statistics about MTA",
         "parameters": [],
