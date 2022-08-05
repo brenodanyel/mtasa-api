@@ -8,6 +8,8 @@ export class App {
   constructor() {
     this.app = express();
     this.app.use(cors());
+
+    this.app.get('/', (_req, res) => res.redirect('https://github.com/brenodanyel/mtasa-api'));
   }
 
   public addRoute(path: string, router: Router) {
