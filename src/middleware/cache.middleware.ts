@@ -4,8 +4,6 @@ import mcache from 'memory-cache';
 export const Cache = (seconds: number) => (req: Request, res: any, next: NextFunction) => {
   const key = req.originalUrl || req.url;
 
-  console.log(key);
-
   const cachedBody = mcache.get(key);
 
   if (cachedBody) {
