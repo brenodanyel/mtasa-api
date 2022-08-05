@@ -4,7 +4,9 @@ export class Middleware {
   static findOne = [
     query('ip')
       .isString()
-      .withMessage('"ip" is missing'),
+      .withMessage('"ip" is missing')
+      .isIP()
+      .withMessage('"ip" should be a valid ip address'),
     query('asePort')
       .exists()
       .withMessage('"asePort" is missing')
