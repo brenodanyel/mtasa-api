@@ -1,6 +1,6 @@
 import express from 'express';
 
-import Controller from '../controller/servers.controller';
+import { Controller } from '../controller/servers.controller';
 import { Cache } from '../middleware/cache.middleware';
 
 const router = express.Router();

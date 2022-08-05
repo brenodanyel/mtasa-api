@@ -1,16 +1,14 @@
 import { Request, Response, NextFunction } from 'express';
 
-import service from '../service/servers.service';
+import { Service } from '../service/servers.service';
 
-class Controller {
+export class Controller {
   static findAll = async (_req: Request, res: Response, next: NextFunction) => {
     try {
-      const servers = await service.findAll();
+      const servers = await Service.findAll();
       res.status(200).json(servers);
     } catch (e) {
       next(e);
     }
   };
 }
-
-export default Controller;
