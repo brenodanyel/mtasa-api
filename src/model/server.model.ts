@@ -10,7 +10,7 @@ export class Model {
       // void ASE::DoPulse()
       // https://github.com/multitheftauto/mtasa-blue/blob/master/Server/mods/deathmatch/logic/ASE.cpp
 
-      socket.send('b', asePort, ip);
+      socket.send('s', asePort, ip);
 
       socket.on('message', (buffer: Buffer) => {
         socket.close();
