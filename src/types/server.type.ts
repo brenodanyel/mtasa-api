@@ -5,7 +5,7 @@ export type Player = {
 
 export type Server = {
   name: string,
-  ip?: string,
+  ip: string,
   port: number;
   httpPort?: number,
   game: string,

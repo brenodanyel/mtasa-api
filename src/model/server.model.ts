@@ -17,7 +17,8 @@ export class Model {
 
         const parser = new ServerParser(buffer);
         const result = parser.parse();
-        resolve(result);
+
+        resolve({ ...result, ip });
       });
     });
   }
