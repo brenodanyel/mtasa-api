@@ -88,7 +88,7 @@ export class ParseServerList extends Parser {
       }
 
       if (bHasName) {
-        server.name = this.readString();
+        server.name = decodeURIComponent(escape(this.readString()));
       }
 
       if (bHasGameMode) {
