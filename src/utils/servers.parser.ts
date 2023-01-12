@@ -89,7 +89,11 @@ export class ParseServerList extends Parser {
 
       if (bHasName) {
         const name = this.readString();
-        server.name = name ? decodeURIComponent(escape(name)) : '';
+        try {
+          server.name = decodeURIComponent(escape(name));
+        } catch {
+          server.name = name;
+        }
       }
 
       if (bHasGameMode) {
