@@ -24,7 +24,7 @@ export class ServerParser extends Parser {
 
     result.game = this.readString();
     result.port = Number(this.readString());
-    result.name = this.readString();
+    result.name = decodeURIComponent(escape(this.readString()));
     result.gameType = this.readString();
     result.mapName = this.readString();
     result.version = this.readString();
