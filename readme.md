@@ -16,7 +16,7 @@ As [MTA](https://mtasa.com) doesn't have a proper API to fetch server informatio
     - We make a GET request to https://master.mtasa.com/ase/mta/.
     - We parse the response.
     - We return the parsed data.
-  - Note: On our side the result is only updated every 2 minutes, but I have no idea how long it takes to update on MTA side.
+  - Note: On our side the result is only updated every 5 minutes, but I have no idea how long it takes to update on MTA side.
 
   - Expected result:
 
