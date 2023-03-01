@@ -7,7 +7,7 @@ const router = express.Router();
 
 router.route('/')
   .get(
-    Cache(2 * 60),
+    Cache(5 * 60),
     Controller.findAll,
   );
 
